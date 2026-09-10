@@ -1,32 +1,26 @@
 id;categoria;nombre;funciona;notas
-1;Television;Televisiones Vestel 40'';no;
+1;Television;Televisiones Vestel 40'';no;Se apagará a final de año. En principio no tiene HDMI ni es Smart TV, por lo que su uso es muy limitado.
 2;Television;Televisiones Samsung-UE40C8000 40'';no;
-3;Cosas random;Dolch;no;
-4;Cosas random;Exfo;no;
-5;Television;Televisiones Vestel 40'';no;
-6;Videobridge;Videobridge  ;no;
-7;Dispositivos OTT;iPad mini WiFi;no;
-8;Dispositivos OTT;iPad 2 WiFi 3G;si;
-9;Dispositivos OTT;Samsung Galaxy Tab2;no;
-10;Dispositivos OTT;Gafas Samsung VR;no;
-11;Dispositivos OTT;Roku;no;
-12;Dispositivos OTT;NowTV;no;
-13;Cosas random;Logitec Camara;no;
-14;Capturadoras;SlingBox M1;no;
-15;Capturadoras;LeelBox 4K;no;
-16;Capturadoras;SlingBox Solo;no;
-17;Dispositivos OTT;XBOX360;no;
-18;Cosas random;DVD WRITER DVD300e;no;
-19;Dispositivos OTT;Nexus 7;no;
-20;Dispositivos OTT;Nexus 5_1;no;
-21;Dispositivos OTT;Amazon Fire TV Full HD;no;
-22;Switch;Switch HDMI USB 3.0;no;
-23;Dispositivos OTT;Roku Ultra 4K HDR;no;
-24;Television;TV LG 42LB670V;no;
-25;Television;TV LG 42LE5500;no;
-26;Television;TV LG 43UP78003LB;no;
-27;Television;"Televisión Vestel 40""";no;
-28;Television;Sony KDL-40V2000 año 2006;no;
-29;Television;LG 32LB5820-ZJ;no;
-30;Television;Samsung UE46F7000SLXXC;no;
-31;Television;Samsung UE46F7000SLXXC;no;
+3;Cosas random;Dolch;no;Según la IA, es un portátil industrial/ruggerizado de Dolch, con una pegatina de Grass Valley junto a la grabadora DVD±RW. Creemos que tiene más de 20 años.
+4;Cosas random;Exfo BV-2000 V-P;no;"Sonda portátil de monitorización y análisis de vídeo sobre IP (lo que EXFO llama ""Video Verifier""). Va en maleta rígida con espuma, como se ve en la foto, para uso en campo o en laboratorio."
+5;Capturadora;Intensity Shutle de Blackmagic Design;no;
+6;Dispositivos OTT;iPad mini 1 WiFi 16GB;no;
+7;Dispositivos OTT;iPad 2 WiFi 3G 16GB;si;
+8;Dispositivos OTT;Samsung Galaxy Tab2 10.1;no;
+9;Dispositivos OTT;Gafas Samsung Gear VR;no;Estaban sin abrir asi que supongo que funcionan
+10;Dispositivos OTT;Roku Ultra 4K HDR;no;reproductor de streaming por HDMI con su propio sistema operativo y tienda de canales/apps de terceros.
+11;Dispositivos OTT;Roku 4;no;reproductor de streaming por HDMI con su propio sistema operativo y tienda de canales/apps de terceros.
+12;Dispositivos OTT;NowTV;no;caja de streaming de Sky basada en hardware Roku, orientada a los paquetes de contenido de NOW TV.
+13;Capturadoras;SlingBox M1;no;Controlador a distancia de descodificadores desde PC, móvil, etc.
+14;Capturadoras;LeelBox 4K;no;Es un Android TV
+15;Capturadoras;SlingBox Solo;no;Controlador a distancia de descodificadores desde PC, móvil, etc.
+16;Dispositivos OTT;XBOX360;no;
+17;Cosas random;DVD WRITER DVD300e;no;
+18;Dispositivos OTT;Tablet Nexus 7;no;
+19;Dispositivos OTT;Amazon Fire TV Full HD;no;
+20;Television;TV LG 42LB670V;no;
+21;Television;TV LG 42LE5500;no;
+22;Television;TV LG 43UP78003LB;no;
+23;Television;Sony KDL-40V2000 año 2006;no;
+24;Television;LG 32LB5820-ZJ;no;
+25;Television;Samsung UE46F7000SLXXC;no;
