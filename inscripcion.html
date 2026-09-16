@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sorteo de material · Gerencia Movistar+</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Pantalla de acceso ===== -->
+  <section id="view-login" class="view" hidden>
+    <div class="card login-card">
+      <h1 id="login-title">Sorteo de material</h1>
+      <p class="muted">Introduce el código de participante y la clave que has recibido por Teams.</p>
+      <form id="login-form">
+        <label>Código de participante
+          <input type="text" id="login-code" required autocomplete="off" autocapitalize="characters"
+                 spellcheck="false" placeholder="P-07">
+        </label>
+        <label>Clave
+          <input type="password" id="login-pass" required autocomplete="current-password" placeholder="Clave recibida por Teams">
+        </label>
+        <button type="submit" class="btn primary" id="login-btn">Entrar</button>
+        <p id="login-error" class="error" hidden></p>
+      </form>
+      <p class="muted small">El sorteo es anónimo: aquí no se guarda tu nombre ni tu correo, solo tu código.
+        Si has perdido la clave, pídesela al organizador.</p>
+    </div>
+  </section>
+
+  <!-- ===== Aplicación ===== -->
+  <section id="view-app" class="view" hidden>
+    <header class="topbar">
+      <div>
+        <h1 id="app-title">Sorteo de material</h1>
+        <p id="deadline-info" class="muted"></p>
+      </div>
+      <div class="user">
+        <span id="user-code"></span>
+        <button id="logout-btn" class="btn ghost">Salir</button>
+      </div>
+    </header>
+
+    <div id="closed-banner" class="banner warn" hidden>
+      El plazo para apuntarse ha terminado. Tus elecciones quedan registradas y ya no se pueden modificar.
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="card">
+          <h2>Tus elecciones</h2>
+          <p class="counter"><span id="count-selected">0</span> de <span id="count-max">0</span></p>
+          <ul id="my-selections" class="my-list"></ul>
+          <p id="edit-hint" class="muted small">Cada cambio se guarda solo. Puedes volver y modificarlo hasta que cierre el plazo.</p>
+        </div>
+        <div class="card">
+          <h2>Filtros</h2>
+          <label>Categoría
+            <select id="filter-category"><option value="">Todas</option></select>
+          </label>
+          <label class="check"><input type="checkbox" id="filter-verified"> Solo los que se ha comprobado que funcionan</label>
+          <label class="check"><input type="checkbox" id="filter-mine"> Solo mis elecciones</label>
+        </div>
+      </aside>
+
+      <main>
+        <div id="items-grid" class="grid"></div>
+        <p id="items-empty" class="muted" hidden>No hay objetos que coincidan con los filtros.</p>
+      </main>
+    </div>
+  </section>
+
+  <!-- ===== Aviso previo ===== -->
+  <div id="modal-warning" class="modal" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="warn-title">
+      <h2 id="warn-title">Antes de empezar</h2>
+      <p><strong>No se ha confirmado el funcionamiento de todos los dispositivos.</strong> Los que sí se han probado aparecen con la marca <span class="badge ok">✔ Funciona</span>; el resto figuran como <span class="badge unknown">Sin comprobar</span>.</p>
+      <p>Si quieres probar alguno, tienes libertad para hacerlo en la oficina. En cuanto se verifique, aquí aparecerá marcado como comprobado.</p>
+      <p>Puedes elegir hasta <strong id="warn-max"></strong> objetos y cambiar tu elección hasta el <strong id="warn-deadline"></strong>.</p>
+      <button id="warn-ok" class="btn primary">Entendido, empezar</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <div id="loading" class="loading">Cargando…</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

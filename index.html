@@ -1,91 +1,625 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sorteo de material · Gerencia Movistar+</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Resultados del sorteo de material · Gerencia Movistar+</title>
+<style>
+:root{
+  --blue:#0b2739; --accent:#019df4; --accent-dark:#0079b8;
+  --gold:#b8860b; --gold-bg:#fff8e6; --gold-line:#f0dba8;
+  --bg:#f3f5f7; --card:#fff; --text:#1d2a33; --muted:#64717c; --border:#dde3e8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.5;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.25rem 4rem}
+h1,h2,h3{color:var(--blue);margin:0}
+a{color:var(--accent-dark)}
+
+/* Cabecera */
+.hero{background:linear-gradient(135deg,var(--blue),#123a54);color:#fff;padding:3rem 1.25rem 2.5rem;text-align:center}
+.hero h1{color:#fff;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.01em}
+.hero p{margin:.6rem 0 0;color:#b9d4e6}
+.cifras{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin:2rem auto 0;max-width:820px}
+.cifra{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:12px;
+  padding:.9rem 1.3rem;min-width:130px}
+.cifra b{display:block;font-size:1.9rem;color:#fff;line-height:1.1}
+.cifra span{font-size:.8rem;color:#b9d4e6}
+
+section{margin-top:2.75rem}
+section>h2{font-size:1.3rem;margin-bottom:.35rem}
+section>.sub{color:var(--muted);margin:0 0 1.1rem;font-size:.92rem}
+
+/* Más disputado */
+.destacado{background:var(--card);border:1px solid var(--border);border-left:5px solid var(--accent);
+  border-radius:12px;padding:1.4rem 1.5rem;display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:space-between}
+.destacado .n{font-size:3rem;font-weight:700;color:var(--accent-dark);line-height:1}
+.destacado .n span{display:block;font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+/* Premiados */
+.premios{list-style:none;padding:0;margin:0;display:grid;gap:.75rem;
+  grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.premio{background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:12px;padding:.9rem 1.1rem;
+  display:flex;flex-direction:column;gap:.55rem}
+.premio-obj h3{font-size:1.02rem;line-height:1.3}
+.premio-quien{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;
+  border-top:1px dashed var(--gold-line);padding-top:.55rem}
+.premio-quien strong{color:var(--gold);font-size:1.02rem}
+.entre{color:var(--muted);font-size:.8rem;margin-left:auto}
+.corona{font-size:.95rem}
+
+/* Detalle por artículo */
+.detalles{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+.detalle{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.15rem}
+.detalle header{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem}
+.detalle h3{font-size:1rem;line-height:1.3;margin-top:.15rem}
+.contador{background:var(--blue);color:#fff;border-radius:999px;min-width:2.1rem;height:2.1rem;
+  display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex:none}
+.cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-dark)}
+.ganador-linea{margin:.7rem 0 .2rem;font-size:.9rem;color:var(--gold)}
+.ganador-linea strong{color:var(--gold)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:.3rem;padding:0;margin:.7rem 0 0}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:.18rem .6rem;font-size:.8rem;color:var(--muted)}
+.chip.ganador{background:var(--gold-bg);border-color:var(--gold-line);color:var(--gold);font-weight:600}
+
+/* Desiertos */
+.desiertos{list-style:none;padding:0;margin:0;display:grid;gap:.5rem;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.desiertos li{background:var(--card);border:1px dashed var(--border);border-radius:10px;padding:.7rem .9rem;color:var(--muted);font-size:.9rem}
+.desiertos b{display:block;color:var(--text);font-weight:600}
+
+footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);color:var(--muted);font-size:.87rem}
+footer p{margin:.4rem 0}
+
+@media (max-width:640px){
+  .detalles,.premios{grid-template-columns:1fr}
+  .cifra{min-width:104px;padding:.7rem .9rem}
+  .cifra b{font-size:1.5rem}
+}
+</style>
 </head>
 <body>
 
-  <!-- ===== Pantalla de acceso ===== -->
-  <section id="view-login" class="view" hidden>
-    <div class="card login-card">
-      <h1 id="login-title">Sorteo de material</h1>
-      <p class="muted">Introduce el código de participante y la clave que has recibido por Teams.</p>
-      <form id="login-form">
-        <label>Código de participante
-          <input type="text" id="login-code" required autocomplete="off" autocapitalize="characters"
-                 spellcheck="false" placeholder="P-07">
-        </label>
-        <label>Clave
-          <input type="password" id="login-pass" required autocomplete="current-password" placeholder="Clave recibida por Teams">
-        </label>
-        <button type="submit" class="btn primary" id="login-btn">Entrar</button>
-        <p id="login-error" class="error" hidden></p>
-      </form>
-      <p class="muted small">El sorteo es anónimo: aquí no se guarda tu nombre ni tu correo, solo tu código.
-        Si has perdido la clave, pídesela al organizador.</p>
-    </div>
-  </section>
-
-  <!-- ===== Aplicación ===== -->
-  <section id="view-app" class="view" hidden>
-    <header class="topbar">
-      <div>
-        <h1 id="app-title">Sorteo de material</h1>
-        <p id="deadline-info" class="muted"></p>
-      </div>
-      <div class="user">
-        <span id="user-code"></span>
-        <button id="logout-btn" class="btn ghost">Salir</button>
-      </div>
-    </header>
-
-    <div id="closed-banner" class="banner warn" hidden>
-      El plazo para apuntarse ha terminado. Tus elecciones quedan registradas y ya no se pueden modificar.
-    </div>
-
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="card">
-          <h2>Tus elecciones</h2>
-          <p class="counter"><span id="count-selected">0</span> de <span id="count-max">0</span></p>
-          <ul id="my-selections" class="my-list"></ul>
-          <p id="edit-hint" class="muted small">Cada cambio se guarda solo. Puedes volver y modificarlo hasta que cierre el plazo.</p>
-        </div>
-        <div class="card">
-          <h2>Filtros</h2>
-          <label>Categoría
-            <select id="filter-category"><option value="">Todas</option></select>
-          </label>
-          <label class="check"><input type="checkbox" id="filter-verified"> Solo los que se ha comprobado que funcionan</label>
-          <label class="check"><input type="checkbox" id="filter-mine"> Solo mis elecciones</label>
-        </div>
-      </aside>
-
-      <main>
-        <div id="items-grid" class="grid"></div>
-        <p id="items-empty" class="muted" hidden>No hay objetos que coincidan con los filtros.</p>
-      </main>
-    </div>
-  </section>
-
-  <!-- ===== Aviso previo ===== -->
-  <div id="modal-warning" class="modal" hidden>
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="warn-title">
-      <h2 id="warn-title">Antes de empezar</h2>
-      <p><strong>No se ha confirmado el funcionamiento de todos los dispositivos.</strong> Los que sí se han probado aparecen con la marca <span class="badge ok">✔ Funciona</span>; el resto figuran como <span class="badge unknown">Sin comprobar</span>.</p>
-      <p>Si quieres probar alguno, tienes libertad para hacerlo en la oficina. En cuanto se verifique, aquí aparecerá marcado como comprobado.</p>
-      <p>Puedes elegir hasta <strong id="warn-max"></strong> objetos y cambiar tu elección hasta el <strong id="warn-deadline"></strong>.</p>
-      <button id="warn-ok" class="btn primary">Entendido, empezar</button>
-    </div>
+<div class="hero">
+  <h1>Sorteo de material de la gerencia</h1>
+  <p>Resultados del 16 de septiembre de 2026</p>
+  <div class="cifras">
+    <div class="cifra"><b>54</b><span>participantes</span></div>
+    <div class="cifra"><b>234</b><span>peticiones</span></div>
+    <div class="cifra"><b>20</b><span>artículos repartidos</span></div>
+    <div class="cifra"><b>26</b><span>artículos en juego</span></div>
   </div>
+</div>
 
-  <div id="toast" class="toast" hidden></div>
-  <div id="loading" class="loading">Cargando…</div>
+<div class="wrap">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="app.js"></script>
+  <section>
+    <h2>El más disputado</h2>
+    <p class="sub">El artículo que más gente quería.</p>
+    <div class="destacado">
+      <div>
+        <span class="cat">Television</span>
+        <h3>TV LG 43UP78003LB</h3>
+        <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Nuria del Caz García</strong></p>
+      </div>
+      <div class="n">40<span>candidatos</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Los premiados</h2>
+    <p class="sub">Un artículo por persona. 20 de los 26 artículos encuentran dueño.</p>
+    <ul class="premios">
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>TV LG 43UP78003LB</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Nuria del Caz García</strong>
+            <span class="entre">entre 40 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>Samsung UE46F7000SLXXC</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Virginia Perulero Castaño</strong>
+            <span class="entre">entre 30 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>iPad 2 WiFi 3G 16GB</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>David Jiménez Ramírez</strong>
+            <span class="entre">entre 23 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Amazon Fire TV Full HD</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Amanda García Pérez</strong>
+            <span class="entre">entre 21 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>TV LG 42LB670V</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Luis Miguel Álvarez Santana</strong>
+            <span class="entre">entre 20 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Samsung Galaxy Tab2 10.1</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Jorge Díez Sánchez</strong>
+            <span class="entre">entre 14 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>Televisiones Samsung-UE40C8000 40&#39;&#39;</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Namir El Khouri Vidarte</strong>
+            <span class="entre">entre 13 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Tablet Nexus 7</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Daniel Fernández Murillo</strong>
+            <span class="entre">entre 12 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>iPad mini 1 WiFi 16GB</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Andrea García González</strong>
+            <span class="entre">entre 11 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>XBOX360</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Pablo Asensio Fuertes</strong>
+            <span class="entre">entre 11 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Roku Ultra 4K HDR</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Malen María Jagne Yubero</strong>
+            <span class="entre">entre 10 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>LG 32LB5820-ZJ</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>José María Bravo Garrido</strong>
+            <span class="entre">entre 9 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Gafas Samsung Gear VR</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Fernando Mata Arenas</strong>
+            <span class="entre">entre 6 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>TV LG 42LE5500</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>María Alonso Arroyo</strong>
+            <span class="entre">entre 6 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Capturadoras</span>
+            <h3>LeelBox 4K</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Adrián Rodríguez Robles</strong>
+            <span class="entre">entre 3 candidatos</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Cosas random</span>
+            <h3>Dolch</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Rubén Martín Aguayo</strong>
+            <span class="entre">entre 1 candidato</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Cosas random</span>
+            <h3>DVD WRITER DVD300e</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Diego Jiménez Blanco</strong>
+            <span class="entre">entre 1 candidato</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Cosas random</span>
+            <h3>Exfo BV-2000 V-P</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Estefanía Ferreira Cano</strong>
+            <span class="entre">entre 1 candidato</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Dispositivos OTT</span>
+            <h3>Roku 4</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>César Martín Martín</strong>
+            <span class="entre">entre 1 candidato</span>
+          </div>
+        </li>
+
+        <li class="premio">
+          <div class="premio-obj">
+            <span class="cat">Television</span>
+            <h3>Sony KDL-40V2000 año 2006</h3>
+          </div>
+          <div class="premio-quien">
+            <span class="corona">🏆</span>
+            <strong>Cristina Vicente Rodríguez</strong>
+            <span class="entre">entre 1 candidato</span>
+          </div>
+        </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Quién pidió cada artículo</h2>
+    <p class="sub">Todas las candidaturas, ordenadas de más disputado a menos. En dorado, quien se lo lleva.</p>
+    <div class="detalles">
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>TV LG 43UP78003LB</h3>
+            </div>
+            <span class="contador">40</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Nuria del Caz García</strong></p>
+          <ul class="chips"><li class="chip">Adrián Rodríguez Robles</li><li class="chip">Álvaro Palomo Sánchez</li><li class="chip">Amanda García Pérez</li><li class="chip">Andrea García González</li><li class="chip">Beatriz Zurera Martínez-Acitores</li><li class="chip">Bernardino Jiménez Sánchez</li><li class="chip">Carlos González Sánchez</li><li class="chip">Carlos Jesús Román de Diego</li><li class="chip">Cristina Vicente Rodríguez</li><li class="chip">David Jiménez Ramírez</li><li class="chip">Desiree Barón Sánchez</li><li class="chip">Diego Jiménez Blanco</li><li class="chip">Estefanía Ferreira Cano</li><li class="chip">Fernando Mata Arenas</li><li class="chip">Gonzalo Fajardo Medina</li><li class="chip">Irene María Navidad Peñalba</li><li class="chip">Javier Hurtado Ortiz</li><li class="chip">José Francisco Tesón Bravo</li><li class="chip">José María Bravo Garrido</li><li class="chip">Kepa Román Txopitea</li><li class="chip">Luis Miguel Álvarez Santana</li><li class="chip">Malen María Jagne Yubero</li><li class="chip">Marcelo Torrecilla Jiménez</li><li class="chip">María Alonso Arroyo</li><li class="chip">María del Pilar García Vila</li><li class="chip">María Gemma Marín Abad</li><li class="chip">María Inmaculada Pastor Juan</li><li class="chip">Mario Romero Pons</li><li class="chip">Namir El Khouri Vidarte</li><li class="chip">Natalia Díaz Martín</li><li class="chip ganador"><span class="corona">🏆</span>Nuria del Caz García</li><li class="chip">Óscar Monsálvez Martínez</li><li class="chip">Pablo Asensio Fuertes</li><li class="chip">Pablo Salinas García del Moral</li><li class="chip">Pedro Antonio Turuelo Hoyo</li><li class="chip">Ramón Pérez García</li><li class="chip">Roberto Sánchez Alcázar</li><li class="chip">Rubén Martín Aguayo</li><li class="chip">Santiago Ruiz Perona</li><li class="chip">Virginia Perulero Castaño</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>Samsung UE46F7000SLXXC</h3>
+            </div>
+            <span class="contador">30</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Virginia Perulero Castaño</strong></p>
+          <ul class="chips"><li class="chip">Adrián Rodríguez Robles</li><li class="chip">Álvaro Palomo Sánchez</li><li class="chip">Amanda García Pérez</li><li class="chip">Bernardino Jiménez Sánchez</li><li class="chip">Carlos Jesús Román de Diego</li><li class="chip">Cristina Vicente Rodríguez</li><li class="chip">David Jiménez Ramírez</li><li class="chip">Diego Jiménez Blanco</li><li class="chip">Eugenio Lojo García</li><li class="chip">Fernando Mata Arenas</li><li class="chip">Gonzalo Fajardo Medina</li><li class="chip">Irene María Navidad Peñalba</li><li class="chip">Javier Hurtado Ortiz</li><li class="chip">José Francisco Tesón Bravo</li><li class="chip">José María Bravo Garrido</li><li class="chip">Luis Miguel Álvarez Santana</li><li class="chip">Marcelo Torrecilla Jiménez</li><li class="chip">María del Pilar García Vila</li><li class="chip">María Gemma Marín Abad</li><li class="chip">María Inmaculada Pastor Juan</li><li class="chip">María López Bautista</li><li class="chip">Mario Romero Pons</li><li class="chip">Moisés Cembellín Flores</li><li class="chip">Natalia Díaz Martín</li><li class="chip">Nuria del Caz García</li><li class="chip">Pablo Salinas García del Moral</li><li class="chip">Pedro Antonio Turuelo Hoyo</li><li class="chip">Ramón Pérez García</li><li class="chip">Roberto Sánchez Alcázar</li><li class="chip ganador"><span class="corona">🏆</span>Virginia Perulero Castaño</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>iPad 2 WiFi 3G 16GB</h3>
+            </div>
+            <span class="contador">23</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>David Jiménez Ramírez</strong></p>
+          <ul class="chips"><li class="chip">Andrea García González</li><li class="chip">Carlos González Sánchez</li><li class="chip">César Martín Martín</li><li class="chip">Daniel Fernández Murillo</li><li class="chip">David Holgado Montori</li><li class="chip ganador"><span class="corona">🏆</span>David Jiménez Ramírez</li><li class="chip">Eugenio Lojo García</li><li class="chip">Fernando Mata Arenas</li><li class="chip">Francisco Javier de Diego Prieto</li><li class="chip">Irene María Navidad Peñalba</li><li class="chip">Jorge Díez Sánchez</li><li class="chip">José María Bravo Garrido</li><li class="chip">Kepa Román Txopitea</li><li class="chip">María Alonso Arroyo</li><li class="chip">María Gemma Marín Abad</li><li class="chip">María López Bautista</li><li class="chip">Mario Romero Pons</li><li class="chip">Moisés Cembellín Flores</li><li class="chip">Pablo Salinas García del Moral</li><li class="chip">Pedro Antonio Turuelo Hoyo</li><li class="chip">Pedro Javier Melián Rodríguez</li><li class="chip">Raquel Abreu Hernando</li><li class="chip">Santiago Ruiz Perona</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Amazon Fire TV Full HD</h3>
+            </div>
+            <span class="contador">21</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Amanda García Pérez</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Amanda García Pérez</li><li class="chip">Andrea García González</li><li class="chip">Carlos González Sánchez</li><li class="chip">César Martín Martín</li><li class="chip">David Jiménez Ramírez</li><li class="chip">Desiree Barón Sánchez</li><li class="chip">Diego Jiménez Blanco</li><li class="chip">Estefanía Ferreira Cano</li><li class="chip">Jorge Díez Sánchez</li><li class="chip">José María Bravo Garrido</li><li class="chip">José María Hillán García</li><li class="chip">Luis Miguel Álvarez Santana</li><li class="chip">María del Pilar García Vila</li><li class="chip">María Inmaculada Pastor Juan</li><li class="chip">María López Bautista</li><li class="chip">Nuria del Caz García</li><li class="chip">Pablo Asensio Fuertes</li><li class="chip">Raquel Abreu Hernando</li><li class="chip">Roberto Sánchez Alcázar</li><li class="chip">Rubén Martín Aguayo</li><li class="chip">Santiago Ruiz Perona</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>TV LG 42LB670V</h3>
+            </div>
+            <span class="contador">20</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Luis Miguel Álvarez Santana</strong></p>
+          <ul class="chips"><li class="chip">Álvaro Palomo Sánchez</li><li class="chip">Bernardino Jiménez Sánchez</li><li class="chip">Cristina Vicente Rodríguez</li><li class="chip">David Holgado Montori</li><li class="chip">Diego Jiménez Blanco</li><li class="chip">Irene María Navidad Peñalba</li><li class="chip">Javier Hurtado Ortiz</li><li class="chip ganador"><span class="corona">🏆</span>Luis Miguel Álvarez Santana</li><li class="chip">Malen María Jagne Yubero</li><li class="chip">Marcelo Torrecilla Jiménez</li><li class="chip">María Alonso Arroyo</li><li class="chip">María del Pilar García Vila</li><li class="chip">María Inmaculada Pastor Juan</li><li class="chip">Namir El Khouri Vidarte</li><li class="chip">Natalia Díaz Martín</li><li class="chip">Óscar Monsálvez Martínez</li><li class="chip">Pablo Salinas García del Moral</li><li class="chip">Pedro Antonio Turuelo Hoyo</li><li class="chip">Ramón Pérez García</li><li class="chip">Santiago Ruiz Perona</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Samsung Galaxy Tab2 10.1</h3>
+            </div>
+            <span class="contador">14</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Jorge Díez Sánchez</strong></p>
+          <ul class="chips"><li class="chip">Andrea García González</li><li class="chip">Daniel Fernández Murillo</li><li class="chip">David Holgado Montori</li><li class="chip">Eugenio Lojo García</li><li class="chip">Francisco Javier de Diego Prieto</li><li class="chip">Irene María Navidad Peñalba</li><li class="chip ganador"><span class="corona">🏆</span>Jorge Díez Sánchez</li><li class="chip">Kepa Román Txopitea</li><li class="chip">María Gemma Marín Abad</li><li class="chip">María López Bautista</li><li class="chip">Moisés Cembellín Flores</li><li class="chip">Pedro Antonio Turuelo Hoyo</li><li class="chip">Pedro Javier Melián Rodríguez</li><li class="chip">Raquel Abreu Hernando</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>Televisiones Samsung-UE40C8000 40&#39;&#39;</h3>
+            </div>
+            <span class="contador">13</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Namir El Khouri Vidarte</strong></p>
+          <ul class="chips"><li class="chip">Álvaro Palomo Sánchez</li><li class="chip">David Holgado Montori</li><li class="chip">Fernando Mata Arenas</li><li class="chip">Gonzalo Fajardo Medina</li><li class="chip">María Alonso Arroyo</li><li class="chip">María Inmaculada Pastor Juan</li><li class="chip">Mario Romero Pons</li><li class="chip ganador"><span class="corona">🏆</span>Namir El Khouri Vidarte</li><li class="chip">Natalia Díaz Martín</li><li class="chip">Pablo Salinas García del Moral</li><li class="chip">Pedro Javier Melián Rodríguez</li><li class="chip">Ramón Pérez García</li><li class="chip">Santiago Ruiz Perona</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Tablet Nexus 7</h3>
+            </div>
+            <span class="contador">12</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Daniel Fernández Murillo</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Daniel Fernández Murillo</li><li class="chip">David Holgado Montori</li><li class="chip">Eugenio Lojo García</li><li class="chip">Francisco Javier de Diego Prieto</li><li class="chip">Gonzalo Fajardo Medina</li><li class="chip">Jorge Díez Sánchez</li><li class="chip">Kepa Román Txopitea</li><li class="chip">María López Bautista</li><li class="chip">Moisés Cembellín Flores</li><li class="chip">Raquel Abreu Hernando</li><li class="chip">Rubén Martín Aguayo</li><li class="chip">Virginia Perulero Castaño</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>iPad mini 1 WiFi 16GB</h3>
+            </div>
+            <span class="contador">11</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Andrea García González</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Andrea García González</li><li class="chip">Daniel Fernández Murillo</li><li class="chip">Eugenio Lojo García</li><li class="chip">Gerardo López Vicens</li><li class="chip">Jorge Díez Sánchez</li><li class="chip">Kepa Román Txopitea</li><li class="chip">María Gemma Marín Abad</li><li class="chip">Moisés Cembellín Flores</li><li class="chip">Pedro Javier Melián Rodríguez</li><li class="chip">Raquel Abreu Hernando</li><li class="chip">Virginia Perulero Castaño</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>XBOX360</h3>
+            </div>
+            <span class="contador">11</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Pablo Asensio Fuertes</strong></p>
+          <ul class="chips"><li class="chip">Carlos Jesús Román de Diego</li><li class="chip">David Jiménez Ramírez</li><li class="chip">Desiree Barón Sánchez</li><li class="chip">Francisco Javier de Diego Prieto</li><li class="chip">Javier Lozano Catalina</li><li class="chip">Malen María Jagne Yubero</li><li class="chip">Mario Romero Pons</li><li class="chip">Natalia Díaz Martín</li><li class="chip ganador"><span class="corona">🏆</span>Pablo Asensio Fuertes</li><li class="chip">Roberto Sánchez Alcázar</li><li class="chip">Rubén Martín Aguayo</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Roku Ultra 4K HDR</h3>
+            </div>
+            <span class="contador">10</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Malen María Jagne Yubero</strong></p>
+          <ul class="chips"><li class="chip">Adrián Rodríguez Robles</li><li class="chip">Amanda García Pérez</li><li class="chip">Antonio Jesús Mogollón Acedo</li><li class="chip">Carlos González Sánchez</li><li class="chip">Carlos Jesús Román de Diego</li><li class="chip">César Martín Martín</li><li class="chip">Javier Hurtado Ortiz</li><li class="chip">José Francisco Tesón Bravo</li><li class="chip ganador"><span class="corona">🏆</span>Malen María Jagne Yubero</li><li class="chip">Nuria del Caz García</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>LG 32LB5820-ZJ</h3>
+            </div>
+            <span class="contador">9</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>José María Bravo Garrido</strong></p>
+          <ul class="chips"><li class="chip">Álvaro Palomo Sánchez</li><li class="chip">Bernardino Jiménez Sánchez</li><li class="chip">Carlos Jesús Román de Diego</li><li class="chip">Javier Hurtado Ortiz</li><li class="chip ganador"><span class="corona">🏆</span>José María Bravo Garrido</li><li class="chip">Malen María Jagne Yubero</li><li class="chip">María del Pilar García Vila</li><li class="chip">Namir El Khouri Vidarte</li><li class="chip">Óscar Monsálvez Martínez</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Gafas Samsung Gear VR</h3>
+            </div>
+            <span class="contador">6</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Fernando Mata Arenas</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Fernando Mata Arenas</li><li class="chip">Gerardo López Vicens</li><li class="chip">José María Hillán García</li><li class="chip">Marcelo Torrecilla Jiménez</li><li class="chip">Nuria del Caz García</li><li class="chip">Ramón Pérez García</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>TV LG 42LE5500</h3>
+            </div>
+            <span class="contador">6</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>María Alonso Arroyo</strong></p>
+          <ul class="chips"><li class="chip">Bernardino Jiménez Sánchez</li><li class="chip">Cristina Vicente Rodríguez</li><li class="chip">Gonzalo Fajardo Medina</li><li class="chip">Luis Miguel Álvarez Santana</li><li class="chip ganador"><span class="corona">🏆</span>María Alonso Arroyo</li><li class="chip">Virginia Perulero Castaño</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Capturadoras</span>
+              <h3>LeelBox 4K</h3>
+            </div>
+            <span class="contador">3</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Adrián Rodríguez Robles</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Adrián Rodríguez Robles</li><li class="chip">Beatriz Zurera Martínez-Acitores</li><li class="chip">César Martín Martín</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Cosas random</span>
+              <h3>Dolch</h3>
+            </div>
+            <span class="contador">1</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Rubén Martín Aguayo</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Rubén Martín Aguayo</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Cosas random</span>
+              <h3>DVD WRITER DVD300e</h3>
+            </div>
+            <span class="contador">1</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Diego Jiménez Blanco</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Diego Jiménez Blanco</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Cosas random</span>
+              <h3>Exfo BV-2000 V-P</h3>
+            </div>
+            <span class="contador">1</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Estefanía Ferreira Cano</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Estefanía Ferreira Cano</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Dispositivos OTT</span>
+              <h3>Roku 4</h3>
+            </div>
+            <span class="contador">1</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>César Martín Martín</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>César Martín Martín</li></ul>
+        </article>
+
+        <article class="detalle">
+          <header>
+            <div>
+              <span class="cat">Television</span>
+              <h3>Sony KDL-40V2000 año 2006</h3>
+            </div>
+            <span class="contador">1</span>
+          </header>
+          <p class="ganador-linea"><span class="corona">🏆</span> Se lo lleva <strong>Cristina Vicente Rodríguez</strong></p>
+          <ul class="chips"><li class="chip ganador"><span class="corona">🏆</span>Cristina Vicente Rodríguez</li></ul>
+        </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sin dueño</h2>
+    <p class="sub">Nadie los pidió, así que no ha hecho falta sortearlos.</p>
+    <ul class="desiertos">
+      <li><b>Intensity Shutle de Blackmagic Design</b>Capturadoras</li>
+      <li><b>SlingBox M1</b>Capturadoras</li>
+      <li><b>SlingBox Solo</b>Capturadoras</li>
+      <li><b>Hervidor de Agua Moulinex</b>Cosas random</li>
+      <li><b>NowTV</b>Dispositivos OTT</li>
+      <li><b>Televisiones Vestel 40&#39;&#39;</b>Television</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Cada persona podía pedir hasta 5 artículos y llevarse como máximo uno. El sorteo se hizo artículo por artículo entre quienes lo habían pedido, en directo y por orden de más candidatos a menos.</p>
+    <p>Durante la inscripción nadie sabía lo que habían pedido los demás. La web solo guardaba un código anónimo por persona.</p>
+    <p><a href="inscripcion.html">Ver la web de inscripción</a></p>
+  </footer>
+
+</div>
 </body>
 </html>
